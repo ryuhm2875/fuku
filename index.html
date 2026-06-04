@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>류현민과 응급조치 · 후쿠오카 여행 취향 조사</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  :root {
+    --bg: #F7F7F5;
+    --surface: #FFFFFF;
+    --surface2: #F2F1EE;
+    --primary: #1A1A1A;
+    --secondary: #6B6B6B;
+    --muted: #AEAEAE;
+    --accent: #3D5AFE;
+    --accent-light: #EEF1FF;
+    --border: #E8E8E6;
+    --selected-bg: #EEF1FF;
+    --selected-border: #3D5AFE;
+    --radius-sm: 12px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --shadow: 0 2px 16px rgba(0,0,0,0.07);
+    --font: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  html, body {
+    height: 100%;
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--primary);
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+
+  #app {
+    max-width: 480px;
+    margin: 0 auto;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ===== SCREENS ===== */
+  .screen {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    transform: translateX(30px);
+  }
+  .screen.active {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateX(0);
+  }
+  .screen.exit-left {
+    opacity: 0;
+    transform: translateX(-30px);
+    pointer-events: none;
+  }
+
+  /* ===== INTRO ===== */
+  #intro {
+    background: var(--surface);
+    justify-content: center;
+    align-items: center;
+    padding: 40px 32px;
+    gap: 0;
+  }
+
+  .intro-pill {
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 28px;
+  }
+
+  .intro-icon {
+    font-size: 52px;
+    margin-bottom: 20px;
+    line-height: 1;
+  }
+
+  .intro-title {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.35;
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+
+  .intro-sub {
+    font-size: 15px;
+    color: var(--secondary);
+    text-align: center;
+    line-height: 1.6;
+    margin-bottom: 48px;
+  }
+
+  .intro-meta {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+
+  .intro-meta-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .intro-meta-num {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: -0.03em;
+  }
+
+  .intro-meta-label {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .intro-divider {
+    width: 1px;
+    height: 36px;
+    background: var(--border);
+    align-self: center;
+  }
+
+  /* ===== SURVEY ===== */
+  #survey {
+    background: var(--bg);
+    overflow: hidden;
+  }
+
+  .survey-header {
+    background: var(--surface);
+    padding: 16px 20px 14px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .survey-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .survey-count {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .survey-label {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .progress-bar {
+    height: 3px;
+    background: var(--surface2);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 100px;
+    transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .survey-body {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 24px 20px 32px;
+    overscroll-behavior: contain;
+  }
+
+  .q-category {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 4px 10px;
+    border-radius: 100px;
+    margin-bottom: 14px;
+  }
+
+  .q-text {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--primary);
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+  }
+
+  .options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .option-card {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 16px 18px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .option-card:active {
+    transform: scale(0.985);
+  }
+
+  .option-card.selected {
+    background: var(--selected-bg);
+    border-color: var(--selected-border);
+  }
+
+  .option-radio {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.18s ease;
+  }
+
+  .option-card.selected .option-radio {
+    border-color: var(--accent);
+    background: var(--accent);
+  }
+
+  .option-radio::after {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: white;
+    opacity: 0;
+    transition: opacity 0.18s ease;
+  }
+
+  .option-card.selected .option-radio::after {
+    opacity: 1;
+  }
+
+  .option-text {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--primary);
+    line-height: 1.4;
+  }
+
+  .option-card.selected .option-text {
+    color: var(--accent);
+  }
+
+  .option-emoji {
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .survey-footer {
+    background: var(--surface);
+    padding: 14px 20px calc(14px + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  /* ===== TEXTAREA (Q20) ===== */
+  .textarea-wrap {
+    position: relative;
+  }
+
+  textarea.free-input {
+    width: 100%;
+    min-height: 120px;
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 14px 16px;
+    font-family: var(--font);
+    font-size: 15px;
+    color: var(--primary);
+    resize: none;
+    outline: none;
+    transition: border-color 0.18s ease;
+    line-height: 1.6;
+  }
+
+  textarea.free-input:focus {
+    border-color: var(--accent);
+  }
+
+  textarea.free-input::placeholder {
+    color: var(--muted);
+  }
+
+  /* ===== BUTTONS ===== */
+  .btn-primary {
+    width: 100%;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 17px;
+    font-family: var(--font);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    letter-spacing: -0.01em;
+  }
+
+  .btn-primary:active {
+    transform: scale(0.98);
+    background: #2a47e0;
+  }
+
+  .btn-primary:disabled {
+    background: var(--border);
+    color: var(--muted);
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* ===== RESULT ===== */
+  #result {
+    background: var(--bg);
+    overflow: hidden;
+  }
+
+  .result-header {
+    background: var(--surface);
+    padding: 32px 24px 28px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .result-icon {
+    font-size: 44px;
+    margin-bottom: 14px;
+  }
+
+  .result-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+
+  .result-sub {
+    font-size: 14px;
+    color: var(--secondary);
+    line-height: 1.6;
+  }
+
+  .result-body {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 20px;
+    overscroll-behavior: contain;
+  }
+
+  .result-section {
+    margin-bottom: 16px;
+  }
+
+  .result-section-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+    padding-left: 4px;
+  }
+
+  .result-card {
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .result-item {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .result-item:last-child {
+    border-bottom: none;
+  }
+
+  .result-q {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 4px;
+    line-height: 1.4;
+  }
+
+  .result-a {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--primary);
+    line-height: 1.4;
+  }
+
+  .result-footer {
+    background: var(--surface);
+    padding: 14px 20px calc(14px + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .btn-copy {
+    flex: 1;
+    background: var(--surface2);
+    color: var(--primary);
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 16px;
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s ease;
+  }
+
+  .btn-copy:active {
+    transform: scale(0.98);
+    background: var(--border);
+  }
+
+  .btn-copy.copied {
+    background: #E8F5E9;
+    color: #2E7D32;
+  }
+
+  .btn-restart {
+    background: var(--surface2);
+    color: var(--secondary);
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 16px 20px;
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    white-space: nowrap;
+  }
+
+  .btn-restart:active {
+    transform: scale(0.98);
+  }
+
+  /* scrollbar */
+  .survey-body::-webkit-scrollbar,
+  .result-body::-webkit-scrollbar { display: none; }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #111111;
+      --surface: #1C1C1E;
+      --surface2: #2C2C2E;
+      --primary: #F5F5F5;
+      --secondary: #AEAEB2;
+      --muted: #636366;
+      --border: #2C2C2E;
+      --accent-light: #1A2147;
+      --selected-bg: #1A2147;
+    }
+    textarea.free-input {
+      background: var(--surface);
+      color: var(--primary);
+    }
+    textarea.free-input::placeholder { color: var(--muted); }
+    .btn-copy.copied { background: #1B3A1C; color: #69B46C; }
+  }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- INTRO -->
+  <div class="screen active" id="intro">
+    <div class="intro-pill">✈️ 2026 · 후쿠오카 여행</div>
+    <div class="intro-icon">🇯🇵</div>
+    <h1 class="intro-title">류현민과 응급조치<br>여행 취향 조사</h1>
+    <p class="intro-sub">8월 2일~4일 후쿠오카 여행을<br>더 완벽하게 준비하기 위한 설문이에요</p>
+    <div class="intro-meta">
+      <div class="intro-meta-item">
+        <span class="intro-meta-num">20</span>
+        <span class="intro-meta-label">질문</span>
+      </div>
+      <div class="intro-divider"></div>
+      <div class="intro-meta-item">
+        <span class="intro-meta-num">3분</span>
+        <span class="intro-meta-label">소요</span>
+      </div>
+      <div class="intro-divider"></div>
+      <div class="intro-meta-item">
+        <span class="intro-meta-num">3일</span>
+        <span class="intro-meta-label">여행</span>
+      </div>
+    </div>
+    <button class="btn-primary" onclick="startSurvey()" style="max-width:320px;">시작하기 →</button>
+  </div>
+
+  <!-- SURVEY -->
+  <div class="screen" id="survey">
+    <div class="survey-header">
+      <div class="survey-top">
+        <span class="survey-count" id="q-count">1 / 20</span>
+        <span class="survey-label" id="q-category-label">여행 페이스</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width:5%"></div>
+      </div>
+    </div>
+    <div class="survey-body" id="survey-body"></div>
+    <div class="survey-footer">
+      <button class="btn-primary" id="next-btn" onclick="nextQuestion()" disabled>다음</button>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="screen" id="result">
+    <div class="result-header">
+      <div class="result-icon">🎉</div>
+      <div class="result-title">취향 조사 완료!</div>
+      <div class="result-sub">아래 결과를 카톡방에 공유해줘요<br>최고의 후쿠오카 여행을 만들어볼게요 🙌</div>
+    </div>
+    <div class="result-body" id="result-body"></div>
+    <div class="result-footer">
+      <button class="btn-copy" id="copy-btn" onclick="copyResult()">📋 결과 복사하기</button>
+      <button class="btn-restart" onclick="restart()">처음부터</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const questions = [
+  {
+    category: "여행 페이스",
+    text: "하루 일정 밀도, 어느 쪽이야?",
+    options: [
+      { emoji: "⚡", text: "빡빡하게 꽉 채워야 직성 풀림" },
+      { emoji: "☕", text: "여유 있게, 카페 한 번 더 들르는 스타일" },
+      { emoji: "🎲", text: "그날 기분따라 결정하자고" }
+    ]
+  },
+  {
+    category: "여행 페이스",
+    text: "8월 후쿠오카는 찜통이야. 더위 대처법은?",
+    options: [
+      { emoji: "🔥", text: "더워도 직진, 땀 좀 흘리면 어때" },
+      { emoji: "❄️", text: "에어컨 대피 최우선, 실내 동선으로" },
+      { emoji: "🌊", text: "더우면 편의점 아이스 사먹으면서 적당히" }
+    ]
+  },
+  {
+    category: "여행 페이스",
+    text: "아침 몇 시에 일어나는 게 자연스러워?",
+    options: [
+      { emoji: "🌅", text: "7시 전 — 일찍 움직여야 맛집 줄 안 섬" },
+      { emoji: "🌤️", text: "8~9시 — 여유 있게 체크아웃 전 브런치" },
+      { emoji: "🌙", text: "10시 이후 — 밤에 활발해지는 타입" }
+    ]
+  },
+  {
+    category: "여행 페이스",
+    text: "숙소에서 짐 풀고 쉬는 시간, 얼마나 필요해?",
+    options: [
+      { emoji: "🎒", text: "짐 던져놓고 바로 나가, 쉬러 온 게 아님" },
+      { emoji: "🛁", text: "샤워하고 1시간 정도는 쉬어야 충전 완료" },
+      { emoji: "🛏️", text: "낮잠 한 숨 자고 저녁부터 활동" }
+    ]
+  },
+  {
+    category: "음식 & 식사",
+    text: "후쿠오카 첫 끼, 뭐 먹고 싶어?",
+    options: [
+      { emoji: "🍜", text: "당연히 하카타 라멘, 공항에서 바로" },
+      { emoji: "🍣", text: "스시 or 오마카세로 제대로 시작" },
+      { emoji: "🍖", text: "야키니쿠에 맥주 한 잔으로 입성" },
+      { emoji: "🍱", text: "편의점 탐방이 진짜 여행의 시작" }
+    ]
+  },
+  {
+    category: "음식 & 식사",
+    text: "맛집 웨이팅, 어디까지 참을 수 있어?",
+    options: [
+      { emoji: "⚡", text: "15분 초과 → 바로 다른 데 감" },
+      { emoji: "⏰", text: "30분은 기본, 맛있으면 기다릴 만하지" },
+      { emoji: "🏆", text: "1시간도 OK, 줄 서는 게 여행의 일부지" }
+    ]
+  },
+  {
+    category: "음식 & 식사",
+    text: "식사 한 끼 예산은 얼마 정도 생각하고 있어? (1인 기준)",
+    options: [
+      { emoji: "💰", text: "5,000엔 이상 — 제대로 즐기러 왔지" },
+      { emoji: "💵", text: "2,000~4,000엔 — 적당히 맛있으면 됨" },
+      { emoji: "🪙", text: "1,000~2,000엔 — 가성비로 여러 곳 가고 싶어" }
+    ]
+  },
+  {
+    category: "음식 & 식사",
+    text: "술 자리 스타일은?",
+    options: [
+      { emoji: "🍺", text: "노미호다이(무제한)로 마음 편하게 달리기" },
+      { emoji: "🥂", text: "한두 잔, 분위기 좋은 바에서 골라 마시기" },
+      { emoji: "🧃", text: "술 대신 맛있는 음료 & 디저트 위주" }
+    ]
+  },
+  {
+    category: "음식 & 식사",
+    text: "먹을 때 자극적인 거 좋아해?",
+    options: [
+      { emoji: "🌶️", text: "매운 거, 짠 거, 기름진 거 다 좋음" },
+      { emoji: "😌", text: "담백하고 깔끔한 게 좋아, 속이 편해야" },
+      { emoji: "🤷", text: "그때그때 다름, 메뉴 보고 정하자" }
+    ]
+  },
+  {
+    category: "음식 & 식사",
+    text: "혼자 또는 취향 다를 때 따로 먹는 거 어때?",
+    options: [
+      { emoji: "🙅", text: "다 같이 먹어야 여행이지, 따로는 싫음" },
+      { emoji: "👌", text: "카페 정도는 따로 가도 되지" },
+      { emoji: "🗺️", text: "각자 하고 싶은 거 하다가 합류해도 OK" }
+    ]
+  },
+  {
+    category: "쇼핑 & 장소",
+    text: "쇼핑 비중은 어느 정도야?",
+    options: [
+      { emoji: "🛍️", text: "주 목적이 쇼핑, 캐리어 반 비워왔음" },
+      { emoji: "🎁", text: "기념품 & 먹거리 위주로 적당히" },
+      { emoji: "👀", text: "구경은 하되 잘 안 삼, 필요한 것만" }
+    ]
+  },
+  {
+    category: "쇼핑 & 장소",
+    text: "쇼핑 예산은 총 얼마나 잡았어?",
+    options: [
+      { emoji: "💸", text: "10만 엔 이상 — 왔으면 제대로 써야지" },
+      { emoji: "💴", text: "3~7만 엔 — 살 거 정해놓고 왔음" },
+      { emoji: "💡", text: "1~2만 엔 이하 — 충동 구매 조심, 나 의지박약" }
+    ]
+  },
+  {
+    category: "쇼핑 & 장소",
+    text: "어떤 쇼핑 장소가 끌려?",
+    options: [
+      { emoji: "🏬", text: "텐진 이와타야·파르코 — 백화점 브랜드 쇼핑" },
+      { emoji: "🎨", text: "야쿠인 NO COFFEE 같은 감성 로컬 숍" },
+      { emoji: "💊", text: "마쓰모토키요시 드럭스토어 — 일본 뷰티·약 싹쓸이" },
+      { emoji: "🏪", text: "돈키호테 — 무조건 돈키" }
+    ]
+  },
+  {
+    category: "쇼핑 & 장소",
+    text: "꼭 가보고 싶은 관광 스타일은?",
+    options: [
+      { emoji: "⛩️", text: "스이쿄텐만구 같은 신사·역사 명소" },
+      { emoji: "📸", text: "인스타 감성 카페·포토스팟 위주" },
+      { emoji: "🛒", text: "캐널시티·아뮤플라자 대형 몰 탐방" },
+      { emoji: "🏘️", text: "로컬 골목 이마이즈미·야쿠인 스트리트" }
+    ]
+  },
+  {
+    category: "쇼핑 & 장소",
+    text: "이동 중 체력 소모, 어디까지 괜찮아?",
+    options: [
+      { emoji: "🚶", text: "걸어 다니는 게 여행이지, 지도 보며 직진" },
+      { emoji: "🚕", text: "4명이면 택시 타는 게 낫지, 돈 내자" },
+      { emoji: "🚇", text: "대중교통 우선, 지하철·버스 탐색하며 가기" }
+    ]
+  },
+  {
+    category: "쇼핑 & 장소",
+    text: "저녁 이후 2차 스타일은?",
+    options: [
+      { emoji: "🍻", text: "이자카야에서 또 마시기, 밤이 진짜 시작" },
+      { emoji: "🎵", text: "라운지 바에서 분위기 있게" },
+      { emoji: "🍦", text: "편의점 아이스크림 들고 숙소 복귀" },
+      { emoji: "😴", text: "저녁 먹으면 바로 숙소, 체력 아껴야" }
+    ]
+  },
+  {
+    category: "경비 & 기타",
+    text: "이번 여행 총 예산(항공+숙박+현지 경비 전체)은?",
+    options: [
+      { emoji: "🤑", text: "100만 원 이상 — 제대로 즐기자" },
+      { emoji: "💰", text: "60~100만 원 — 적당히 쓰면서 즐기기" },
+      { emoji: "🪙", text: "60만 원 이하 — 최대한 아껴서" }
+    ]
+  },
+  {
+    category: "경비 & 기타",
+    text: "경비 정산 방식은?",
+    options: [
+      { emoji: "📊", text: "N빵 정확하게, 정산 앱 쓰자" },
+      { emoji: "🤝", text: "한 명이 내고 나중에 대충 맞춰서" },
+      { emoji: "🎰", text: "각자 낼 때 내고, 크게 어긋나지 않으면 OK" }
+    ]
+  },
+  {
+    category: "경비 & 기타",
+    text: "여행에서 가장 아깝지 않은 지출은?",
+    options: [
+      { emoji: "🍽️", text: "맛있는 식사 — 먹는 게 남는 거" },
+      { emoji: "🛍️", text: "쇼핑 — 추억은 사는 거야" },
+      { emoji: "🏨", text: "숙소 — 잘 자야 다음 날 힘냄" },
+      { emoji: "🚕", text: "교통 — 편하게 다니는 게 최고" }
+    ]
+  },
+  {
+    category: "경비 & 기타",
+    text: "이번 후쿠오카 여행 버킷리스트를 적어줘!\n(꼭 먹고 싶은 것, 가보고 싶은 곳, 하고 싶은 것 뭐든 OK)",
+    isText: true
+  }
+];
+
+let currentQ = 0;
+let answers = new Array(20).fill(null);
+
+function showScreen(id) {
+  const all = document.querySelectorAll('.screen');
+  const target = document.getElementById(id);
+  const current = document.querySelector('.screen.active');
+
+  if (current && current !== target) {
+    current.classList.remove('active');
+    current.classList.add('exit-left');
+    setTimeout(() => current.classList.remove('exit-left'), 400);
+  }
+
+  setTimeout(() => {
+    target.style.transform = 'translateX(30px)';
+    target.classList.add('active');
+    setTimeout(() => { target.style.transform = ''; }, 10);
+  }, current ? 50 : 0);
+}
+
+function startSurvey() {
+  currentQ = 0;
+  answers = new Array(20).fill(null);
+  renderQuestion();
+  showScreen('survey');
+}
+
+function renderQuestion() {
+  const q = questions[currentQ];
+  const body = document.getElementById('survey-body');
+  const countEl = document.getElementById('q-count');
+  const catEl = document.getElementById('q-category-label');
+  const progressEl = document.getElementById('progress-fill');
+  const nextBtn = document.getElementById('next-btn');
+
+  countEl.textContent = (currentQ + 1) + ' / 20';
+  catEl.textContent = q.category;
+  progressEl.style.width = ((currentQ + 1) / 20 * 100) + '%';
+  nextBtn.textContent = currentQ === 19 ? '제출하기' : '다음';
+
+  const saved = answers[currentQ];
+
+  if (q.isText) {
+    body.innerHTML = `
+      <div class="q-category">${q.category}</div>
+      <div class="q-text">${q.text.replace(/\n/g, '<br>')}</div>
+      <div class="textarea-wrap">
+        <textarea class="free-input" id="free-text" placeholder="예: 이치란 라멘 본점, 텐진 지하상가 전체 탐방, 야쿠인 카페 투어..." rows="5">${saved || ''}</textarea>
+      </div>
+    `;
+    const ta = document.getElementById('free-text');
+    const updateBtn = () => {
+      answers[currentQ] = ta.value.trim();
+      nextBtn.disabled = ta.value.trim().length === 0;
+    };
+    ta.addEventListener('input', updateBtn);
+    nextBtn.disabled = !saved || saved.length === 0;
+  } else {
+    const optionsHtml = q.options.map((opt, i) => `
+      <div class="option-card${saved === i ? ' selected' : ''}" onclick="selectOption(${i})">
+        <span class="option-emoji">${opt.emoji}</span>
+        <span class="option-text">${opt.text}</span>
+        <div class="option-radio"></div>
+      </div>
+    `).join('');
+
+    body.innerHTML = `
+      <div class="q-category">${q.category}</div>
+      <div class="q-text">${q.text}</div>
+      <div class="options-grid">${optionsHtml}</div>
+    `;
+    nextBtn.disabled = saved === null;
+  }
+
+  body.scrollTop = 0;
+}
+
+function selectOption(idx) {
+  const q = questions[currentQ];
+  if (q.isText) return;
+  answers[currentQ] = idx;
+  document.querySelectorAll('.option-card').forEach((el, i) => {
+    el.classList.toggle('selected', i === idx);
+  });
+  document.getElementById('next-btn').disabled = false;
+}
+
+function nextQuestion() {
+  if (document.getElementById('next-btn').disabled) return;
+
+  if (currentQ < 19) {
+    currentQ++;
+    animateQuestion();
+  } else {
+    showResult();
+  }
+}
+
+function animateQuestion() {
+  const body = document.getElementById('survey-body');
+  body.style.transition = 'opacity 0.18s ease, transform 0.18s ease';
+  body.style.opacity = '0';
+  body.style.transform = 'translateX(-20px)';
+
+  setTimeout(() => {
+    renderQuestion();
+    body.style.transition = 'none';
+    body.style.transform = 'translateX(20px)';
+    body.style.opacity = '0';
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        body.style.transition = 'opacity 0.22s ease, transform 0.22s ease';
+        body.style.opacity = '1';
+        body.style.transform = 'translateX(0)';
+      });
+    });
+  }, 180);
+}
+
+const sectionTitles = [
+  { range: [0,3], title: "🗓️ 여행 페이스 & 일정 강도" },
+  { range: [4,9], title: "🍜 음식 취향 & 식사 스타일" },
+  { range: [10,15], title: "🛍️ 쇼핑 & 가고 싶은 곳" },
+  { range: [16,19], title: "💰 경비 & 기타" },
+];
+
+function showResult() {
+  const body = document.getElementById('result-body');
+  let html = '';
+  let copyText = '✈️ 류현민과 응급조치 후쿠오카 여행 취향 조사 결과\n8월 2일~4일\n\n';
+
+  sectionTitles.forEach(section => {
+    const [start, end] = section.range;
+    html += `<div class="result-section">
+      <div class="result-section-title">${section.title}</div>
+      <div class="result-card">`;
+    copyText += `${section.title}\n`;
+
+    for (let i = start; i <= end; i++) {
+      const q = questions[i];
+      const ans = answers[i];
+      let ansText = '';
+
+      if (q.isText) {
+        ansText = (ans && ans.length > 0) ? ans : '(미입력)';
+      } else {
+        ansText = ans !== null ? `${q.options[ans].emoji} ${q.options[ans].text}` : '(미선택)';
+      }
+
+      const shortQ = q.text.length > 30 ? q.text.substring(0, 30) + '…' : q.text;
+      html += `<div class="result-item">
+        <div class="result-q">Q${i+1}. ${shortQ}</div>
+        <div class="result-a">${ansText}</div>
+      </div>`;
+      copyText += `Q${i+1}. ${shortQ.replace(/\n/g,' ')}\n→ ${q.isText ? ansText : (q.options[ans]?.emoji + ' ' + q.options[ans]?.text)}\n`;
+    }
+
+    html += `</div></div>`;
+    copyText += '\n';
+  });
+
+  copyText += '카톡방에서 확인 부탁해요 🙏';
+  body.innerHTML = html;
+  body.dataset.copyText = copyText;
+  showScreen('result');
+}
+
+function copyResult() {
+  const text = document.getElementById('result-body').dataset.copyText;
+  const btn = document.getElementById('copy-btn');
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✅ 복사 완료!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = '📋 결과 복사하기';
+        btn.classList.remove('copied');
+      }, 2500);
+    });
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try { document.execCommand('copy'); } catch(e) {}
+    document.body.removeChild(ta);
+    btn.textContent = '✅ 복사 완료!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = '📋 결과 복사하기';
+      btn.classList.remove('copied');
+    }, 2500);
+  }
+}
+
+function restart() {
+  currentQ = 0;
+  answers = new Array(20).fill(null);
+  showScreen('intro');
+}
+</script>
+</body>
+</html>
