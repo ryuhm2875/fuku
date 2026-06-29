@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>다음은 언제일지 모른다 — 2026 후쿠오카</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;700&display=swap');
+:root{--bg:#0f0f0f;--s1:#1a1a1a;--s2:#242424;--bd:#2e2e2e;--ac:#e8c547;--ac2:#e87c3e;--tx:#e8e8e8;--tm:#888;--td:#555;--d1:#e87c3e;--d2:#5b9bd5;--d3:#72b472}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--tx);font-family:'Noto Sans KR',sans-serif;font-size:14px;line-height:1.7}
+.wrap{max-width:920px;margin:0 auto}
+
+/* HERO */
+.hero{padding:56px 40px 44px;border-bottom:1px solid var(--bd)}
+.hero-tag{font-size:10px;letter-spacing:.2em;color:var(--ac);text-transform:uppercase;font-weight:700;margin-bottom:14px}
+.hero h1{font-family:'Noto Serif KR',serif;font-size:36px;font-weight:700;line-height:1.2;margin-bottom:8px}
+.hero h1 span{color:var(--ac)}
+.hero-sub{color:var(--tm);font-size:13px;margin-top:10px}
+.hero-meta{display:flex;gap:28px;margin-top:24px;flex-wrap:wrap}
+.mi{display:flex;flex-direction:column;gap:3px}
+.ml{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--td);font-weight:700}
+.mv{font-size:13px;color:var(--tx);font-weight:500}
+
+/* TABS */
+.tabs{display:flex;border-bottom:1px solid var(--bd);padding:0 40px;gap:0}
+.tab{padding:14px 22px;font-size:13px;font-weight:500;color:var(--tm);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;user-select:none}
+.tab:hover{color:var(--tx)}
+.tab.active{color:var(--ac);border-bottom-color:var(--ac)}
+
+/* CONTENT */
+.content{padding:0 40px 80px}
+.panel{display:none;padding-top:36px}
+.panel.active{display:block}
+
+/* SECTION TITLE */
+.st{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--td);font-weight:700;margin-bottom:14px;margin-top:36px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+
+/* SUMMARY CARDS */
+.sg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:36px}
+.dc{background:var(--s1);border:1px solid var(--bd);border-radius:8px;padding:22px 18px;position:relative;overflow:hidden}
+.dc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.dc.d1::before{background:var(--d1)}.dc.d2::before{background:var(--d2)}.dc.d3::before{background:var(--d3)}
+.dn{font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:4px}
+.d1 .dn{color:var(--d1)}.d2 .dn{color:var(--d2)}.d3 .dn{color:var(--d3)}
+.dc h3{font-size:14px;font-weight:700;margin-bottom:14px}
+.di{list-style:none}
+.di li{font-size:11px;color:var(--tm);padding:5px 0;border-bottom:1px solid var(--bd);display:flex;gap:7px;align-items:flex-start}
+.di li:last-child{border-bottom:none}
+.dt{font-size:10px;color:var(--td);min-width:34px;padding-top:1px;font-weight:700}
+.tag-e{color:var(--ac2);font-size:9px;font-weight:700}
+.tag-s{color:#a78bfa;font-size:9px;font-weight:700}
+.tag-m{color:var(--td);font-size:9px;font-weight:700}
+.tag-x{color:var(--ac);font-size:9px;font-weight:700}
+
+/* DEPART BOX */
+.db{background:var(--s1);border:1px solid var(--bd);border-radius:8px;padding:22px 20px;margin-bottom:14px}
+.db h4{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ac);font-weight:700;margin-bottom:12px}
+.db p{font-size:13px;color:var(--tm);margin-bottom:6px}
+.db strong{color:var(--tx)}
+.db .warn{color:var(--ac);font-size:12px;margin-top:8px}
+
+/* BUDGET */
+.bg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px}
+.br{background:var(--s1);border:1px solid var(--bd);border-radius:6px;padding:14px;display:flex;justify-content:space-between;align-items:center}
+.bl{font-size:11px;color:var(--tm)}
+.bv{font-size:13px;font-weight:700;color:var(--ac)}
+
+/* SHOPPING */
+.shop-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:4px}
+.shop-card{background:var(--s1);border:1px solid var(--bd);border-radius:8px;padding:18px 16px}
+.shop-card h4{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:12px}
+.shop-card.cat1 h4{color:var(--ac2)}
+.shop-card.cat2 h4{color:#a78bfa}
+.shop-card.cat3 h4{color:var(--ac)}
+.shop-card.cat4 h4{color:var(--d2)}
+.shop-item{margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--bd)}
+.shop-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.shop-item .name{font-size:13px;font-weight:700;color:var(--tx);margin-bottom:3px}
+.shop-item .desc{font-size:11px;color:var(--tm);line-height:1.6}
+
+/* SNACK */
+.snack-list{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.snack{background:var(--s1);border:1px solid var(--bd);border-radius:6px;padding:14px 16px}
+.snack .sn{font-size:13px;font-weight:700;color:var(--tx);margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.snack .sd{font-size:11px;color:var(--tm);line-height:1.6}
+.snack .sp{font-size:11px;color:var(--ac);font-weight:700;margin-top:4px}
+
+/* DETAIL */
+.day-section{margin-bottom:52px}
+.day-header{display:flex;align-items:center;gap:14px;margin-bottom:24px;padding-bottom:14px;border-bottom:1px solid var(--bd)}
+.day-badge{width:42px;height:42px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;flex-shrink:0}
+.d1 .day-badge{background:rgba(232,124,62,.15);color:var(--d1)}
+.d2 .day-badge{background:rgba(91,155,213,.15);color:var(--d2)}
+.d3 .day-badge{background:rgba(114,180,114,.15);color:var(--d3)}
+.dht h2{font-size:19px;font-weight:700}
+.dht p{font-size:12px;color:var(--tm);margin-top:2px}
+
+/* TIMELINE */
+.tl{position:relative;padding-left:26px}
+.tl::before{content:'';position:absolute;left:5px;top:0;bottom:0;width:1px;background:var(--bd)}
+.ti{position:relative;margin-bottom:26px}
+.dot{position:absolute;left:-24px;top:4px;width:11px;height:11px;border-radius:50%;border:2px solid var(--bd);background:var(--bg)}
+.dot.eat{border-color:var(--ac2);background:rgba(232,124,62,.2)}
+.dot.move{border-color:var(--td)}
+.dot.shop{border-color:#a78bfa;background:rgba(167,139,250,.2)}
+.dot.sos{border-color:var(--ac);background:rgba(232,197,71,.2)}
+.dot.cafe{border-color:#f9a8d4;background:rgba(249,168,212,.2)}
+.dot.night{border-color:var(--d2);background:rgba(91,155,213,.2)}
+.ti-time{font-size:10px;color:var(--td);font-weight:700;letter-spacing:.05em;margin-bottom:3px}
+.ti-title{font-size:15px;font-weight:700;color:var(--tx);margin-bottom:6px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.badge{font-size:9px;padding:2px 7px;border-radius:20px;font-weight:700;letter-spacing:.05em}
+.b-eat{background:rgba(232,124,62,.2);color:var(--ac2)}
+.b-sos{background:rgba(232,197,71,.15);color:var(--ac)}
+.b-shop{background:rgba(167,139,250,.15);color:#a78bfa}
+.b-cafe{background:rgba(249,168,212,.15);color:#f9a8d4}
+.b-res{background:rgba(239,68,68,.15);color:#f87171}
+.b-cash{background:rgba(251,191,36,.15);color:#fbbf24}
+.b-night{background:rgba(91,155,213,.15);color:var(--d2)}
+.ti-body{font-size:13px;color:var(--tm);line-height:1.75}
+.ti-body p{margin-bottom:6px}
+.ti-body strong{color:var(--tx);font-weight:500}
+.hl{background:var(--s2);border-left:2px solid var(--ac);padding:10px 14px;margin:8px 0;border-radius:0 4px 4px 0;font-size:12px}
+.hl.blue{border-left-color:var(--d2)}
+.hl.green{border-left-color:var(--d3)}
+.hl.red{border-left-color:#f87171}
+.mt{width:100%;border-collapse:collapse;margin:8px 0;font-size:12px}
+.mt th{text-align:left;color:var(--td);font-weight:700;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:5px 9px;border-bottom:1px solid var(--bd)}
+.mt td{padding:6px 9px;color:var(--tm);border-bottom:1px solid var(--bd)}
+.mt tr:last-child td{border-bottom:none}
+.mt .pr{color:var(--ac);font-weight:500}
+.lb{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--ac);text-decoration:none;border:1px solid rgba(232,197,71,.3);padding:4px 10px;border-radius:4px;margin-top:7px;transition:background .2s}
+.lb:hover{background:rgba(232,197,71,.1)}
+
+/* CHECKLIST */
+.cl{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.cl li{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--tm);background:var(--s1);padding:8px 12px;border-radius:4px;border:1px solid var(--bd)}
+.cl .ck{color:var(--ac);flex-shrink:0}
+
+/* DEPART ROUTE */
+.route{display:flex;flex-direction:column}
+.rs{display:flex;gap:14px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--bd)}
+.rs:last-child{border-bottom:none}
+.rt{font-size:12px;font-weight:700;color:var(--ac);min-width:48px}
+.rd{font-size:13px;color:var(--tm)}
+.rd strong{color:var(--tx)}
+
+footer{text-align:center;padding:36px;color:var(--td);font-size:11px;border-top:1px solid var(--bd);max-width:920px;margin:0 auto}
+
+@media(max-width:680px){
+  .hero{padding:36px 20px 28px}.hero h1{font-size:24px}
+  .hero-meta{gap:16px}
+  .mi{min-width:calc(50% - 8px)}
+  .tabs{padding:0 20px;overflow-x:auto;white-space:nowrap}
+  .tab{padding:12px 16px;font-size:12px}
+  .content{padding:0 20px 60px}
+  .sg{grid-template-columns:1fr}.bg{grid-template-columns:1fr}
+  .cl{grid-template-columns:1fr}.shop-grid{grid-template-columns:1fr}
+  .snack-list{grid-template-columns:1fr}
+  .bt thead th:last-child,.bt tbody td:last-child{display:none}
+  .budget-total-row{flex-direction:column;align-items:flex-start;gap:4px}
+  .btv-krw{margin-left:0}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">✈ 2026 Summer · Fukuoka</div>
+  <h1>류현민과 응급조치<br><span>후쿠오카 여름휴가 계획</span></h1>
+  <p class="hero-sub">다음은 언제일지 모른다. 즐기자!</p>
+  <div class="hero-meta">
+    <div class="mi"><span class="ml">기간</span><span class="mv">2026.08.02 일 — 08.04 화</span></div>
+    <div class="mi"><span class="ml">멤버</span><span class="mv">류봉두 · 김승구 · 송요댕 · 배돌이</span></div>
+    <div class="mi"><span class="ml">출발지</span><span class="mv">경기도 군포시 (카카오택시 이동)</span></div>
+    <div class="mi"><span class="ml">✈ 가는 편</span><span class="mv">에어서울 — 인천 T2 08:05 출발</span></div>
+    <div class="mi"><span class="ml">✈ 오는 편</span><span class="mv">티웨이 — 후쿠오카 17:30 출발 → 인천 T1 도착</span></div>
+    <div class="mi"><span class="ml">숙소</span><span class="mv">이마이즈미 에어비앤비<br><span style="font-size:11px;color:var(--td)">후쿠오카시 주오구 이마이즈미 1초메 18-42</span></span></div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('summary',this)">요약본</div>
+  <div class="tab" onclick="switchTab('detail',this)">상세 일정</div>
+  <div class="tab" onclick="switchTab('shopping',this)">쇼핑 & 간식</div>
+  <div class="tab" onclick="switchTab('check',this)">체크리스트</div>
+</div>
+
+<div class="content">
+
+<!-- ══════════════════════════════
+     PANEL 1 : 요약본
+══════════════════════════════ -->
+<div class="panel active" id="panel-summary">
+
+  <div class="st">D-0 출발 당일 동선 (군포 → 인천공항 T2)</div>
+  <div class="db">
+    <h4>🚖 카카오택시 예약 기준 타임라인</h4>
+    <p><strong>04:30</strong> — 군포 출발. 카카오택시 100,000원 / 7일 전 예약 필수</p>
+    <p><strong>05:40</strong> — 인천공항 <strong>제2터미널(T2)</strong> 도착. 에어서울 전용 카운터 E1~E10</p>
+    <p><strong>05:50</strong> — 탑승 수속 & 수하물 위탁 (출발 2시간 15분 전)</p>
+    <p><strong>06:20</strong> — 보안검색 & 출국심사</p>
+    <p><strong>07:20</strong> — 게이트 대기 / 면세점</p>
+    <p><strong>08:05</strong> — 인천 T2 출발 ✈ (에어서울)</p>
+    <p class="warn">⚠ 귀국 시 티웨이항공은 인천 <strong>제1터미널(T1)</strong> 도착. T2와 다른 터미널이므로 혼동 금지.</p>
+  </div>
+
+  <div class="st">3일 일정 요약</div>
+  <div class="sg">
+    <!-- DAY 1 -->
+    <div class="dc d1">
+      <div class="dn">Day 1 · 8월 2일 (일)</div>
+      <h3>하카타 압축 쇼핑 &<br>이마이즈미 밤거리</h3>
+      <ul class="di">
+        <li><span class="dt">10:30</span><span><span class="tag-m">도착</span> 후쿠오카 공항 → 하카타역</span></li>
+        <li><span class="dt">11:00</span><span><span class="tag-x">★응급</span> 하카타역 코인라커 짐 보관</span></li>
+        <li><span class="dt">12:30</span><span><span class="tag-e">점심</span> 하카타 우오쿠라 가이세키</span></li>
+        <li><span class="dt">14:00</span><span><span class="tag-s">쇼핑</span> 아뮤플라자 · 한큐 백화점</span></li>
+        <li><span class="dt">15:30</span><span><span class="tag-e">카페</span> REC COFFEE 마루이점</span></li>
+        <li><span class="dt">16:30</span><span><span class="tag-m">이동</span> 짐 찾아 숙소 체크인 & 휴식</span></li>
+        <li><span class="dt">18:00</span><span><span class="tag-e">저녁</span> 니쿠젠 야키니쿠 무제한</span></li>
+        <li><span class="dt">21:00</span><span><span class="tag-e">2차</span> 이마이즈미 골목 맥주집</span></li>
+      </ul>
+    </div>
+    <!-- DAY 2 -->
+    <div class="dc d2">
+      <div class="dn">Day 2 · 8월 3일 (월)</div>
+      <h3>야쿠인 감성 투어 &<br>텐진 중앙공원 밤산책</h3>
+      <ul class="di">
+        <li><span class="dt">11:15</span><span><span class="tag-e">점심</span> 부타야 쇼쿠도 돈테키</span></li>
+        <li><span class="dt">12:30</span><span><span class="tag-s">쇼핑</span> 야쿠인~이마이즈미 편집숍</span></li>
+        <li><span class="dt">15:30</span><span><span class="tag-e">카페</span> 커넥트 커피</span></li>
+        <li><span class="dt">18:30</span><span><span class="tag-e">저녁</span> 토리돈 하루요시 야키토리</span></li>
+        <li><span class="dt">21:00</span><span><span class="tag-s">야경</span> 텐진 중앙공원 낭만 산책</span></li>
+        <li><span class="dt">22:00</span><span><span class="tag-e">2차</span> 숙소 근처 이자카야</span></li>
+      </ul>
+    </div>
+    <!-- DAY 3 -->
+    <div class="dc d3">
+      <div class="dn">Day 3 · 8월 4일 (화)</div>
+      <h3>하카타역 실내 올인원 &<br>후쿠오카 출발</h3>
+      <ul class="di">
+        <li><span class="dt">10:15</span><span><span class="tag-m">이동</span> 체크아웃 → 하카타역 택시</span></li>
+        <li><span class="dt">10:45</span><span><span class="tag-x">★응급</span> 수하물 보관소 짐 위탁</span></li>
+        <li><span class="dt">11:00</span><span><span class="tag-e">점심</span> 신신라멘 데이토스점</span></li>
+        <li><span class="dt">12:30</span><span><span class="tag-s">쇼핑</span> 한큐 지하 · 아뮤 식품관</span></li>
+        <li><span class="dt">13:30</span><span><span class="tag-e">카페</span> 무츠카도 카페 (아뮤 5층)</span></li>
+        <li><span class="dt">14:00</span><span><span class="tag-m">이동</span> 짐 찾아 공항 택시 출발</span></li>
+        <li><span class="dt">14:30</span><span>후쿠오카 공항 탑승 수속</span></li>
+        <li><span class="dt">17:30</span><span>후쿠오카 출발 → 인천 T1 도착 ✈ (티웨이)</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="st">예상 비용 (1인 기준 · 1엔 = 10원 환산)</div>
+
+  <style>
+  .budget-wrap{margin-top:4px}
+  .budget-section{margin-bottom:20px}
+  .budget-section-title{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--td);font-weight:700;padding:6px 0;margin-bottom:6px;border-bottom:1px dashed var(--bd)}
+  .bt{width:100%;border-collapse:collapse;font-size:12px}
+  .bt thead tr{border-bottom:1px solid var(--bd)}
+  .bt thead th{text-align:left;color:var(--td);font-size:10px;font-weight:700;letter-spacing:.08em;padding:5px 10px}
+  .bt thead th:not(:first-child){text-align:right}
+  .bt tbody tr{border-bottom:1px solid rgba(46,46,46,.5)}
+  .bt tbody tr:last-child{border-bottom:none}
+  .bt tbody td{padding:7px 10px;color:var(--tm)}
+  .bt tbody td:not(:first-child){text-align:right}
+  .bt .yen{color:var(--ac);font-weight:600}
+  .bt .krw{color:var(--d2);font-weight:500;font-size:11px}
+  .bt .krw-only{color:var(--d2);font-weight:600}
+  .budget-total{background:var(--s2);border:1px solid var(--ac);border-radius:8px;padding:18px 20px;margin-top:8px}
+  .budget-total-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--bd)}
+  .budget-total-row:last-child{border-bottom:none;padding-top:10px;margin-top:4px}
+  .btl{font-size:12px;color:var(--tm)}
+  .btv-yen{font-size:14px;font-weight:700;color:var(--ac)}
+  .btv-krw{font-size:12px;font-weight:600;color:var(--d2);margin-left:8px}
+  .total-final .btl{font-size:13px;color:var(--tx);font-weight:700}
+  .total-final .btv-yen{font-size:18px;color:var(--ac)}
+  .total-final .btv-krw{font-size:14px;color:var(--d2)}
+  .budget-note{font-size:11px;color:var(--td);margin-top:10px;line-height:1.8}
+  </style>
+
+  <div class="budget-wrap">
+
+    <!-- 한국 내 이동 -->
+    <div class="budget-section">
+      <div class="budget-section-title">🇰🇷 한국 내 이동 (원화)</div>
+      <table class="bt">
+        <thead><tr><th>항목</th><th>금액</th></tr></thead>
+        <tbody>
+          <tr><td>카카오택시 군포→인천공항 T2 (4인 분담)</td><td class="krw-only">25,000원</td></tr>
+          <tr><td>귀국 후 인천공항 T1→군포 택시 (4인 분담)</td><td class="krw-only">25,000원</td></tr>
+          <tr><td style="font-weight:600;color:var(--tx)">국내 이동 소계</td><td class="krw-only" style="font-weight:700">50,000원</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 식사 -->
+    <div class="budget-section">
+      <div class="budget-section-title">🍽 식사 · 음료</div>
+      <table class="bt">
+        <thead><tr><th>항목</th><th>엔화</th><th>한화 (≒)</th></tr></thead>
+        <tbody>
+          <tr><td>1일차 점심 · 우오쿠라 가이세키 (주류 별도)</td><td class="yen">12,000엔~</td><td class="krw">120,000원~</td></tr>
+          <tr><td>1일차 저녁 · 니쿠젠 프리미엄 + 주류</td><td class="yen">10,000엔~</td><td class="krw">100,000원~</td></tr>
+          <tr><td>1일차 2차 · 이마이즈미 맥주집</td><td class="yen">2,500엔~</td><td class="krw">25,000원~</td></tr>
+          <tr><td>2일차 점심 · 부타야 쇼쿠도 돈테키</td><td class="yen">2,500엔~</td><td class="krw">25,000원~</td></tr>
+          <tr><td>2일차 저녁 · 토리돈 야키토리 + 주류</td><td class="yen">6,500엔~</td><td class="krw">65,000원~</td></tr>
+          <tr><td>2일차 2차 · 숙소 근처 이자카야</td><td class="yen">2,500엔~</td><td class="krw">25,000원~</td></tr>
+          <tr><td>3일차 점심 · 신신라멘 + 교자</td><td class="yen">1,500엔~</td><td class="krw">15,000원~</td></tr>
+          <tr><td>카페 3회 (REC / 커넥트 / 무츠카도)</td><td class="yen">2,400엔~</td><td class="krw">24,000원~</td></tr>
+          <tr><td style="font-weight:600;color:var(--tx)">식사 소계</td><td class="yen" style="font-weight:700">39,900엔~</td><td class="krw" style="font-weight:700">399,000원~</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 이동 · 보관 -->
+    <div class="budget-section">
+      <div class="budget-section-title">🚖 현지 이동 · 보관 (엔화)</div>
+      <table class="bt">
+        <thead><tr><th>항목</th><th>엔화</th><th>한화 (≒)</th></tr></thead>
+        <tbody>
+          <tr><td>공항→하카타역 택시</td><td class="yen">2,000엔</td><td class="krw">20,000원</td></tr>
+          <tr><td>하카타역→숙소 택시 (1일차)</td><td class="yen">1,000엔</td><td class="krw">10,000원</td></tr>
+          <tr><td>숙소→하카타역 택시 (3일차)</td><td class="yen">1,000엔</td><td class="krw">10,000원</td></tr>
+          <tr><td>하카타역→공항 택시 (3일차)</td><td class="yen">2,000엔</td><td class="krw">20,000원</td></tr>
+          <tr><td>코인라커 · 수하물보관 (1일차 + 3일차)</td><td class="yen">2,000엔</td><td class="krw">20,000원</td></tr>
+          <tr><td style="font-weight:600;color:var(--tx)">이동·보관 소계</td><td class="yen" style="font-weight:700">8,000엔</td><td class="krw" style="font-weight:700">80,000원</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 간식 · 기타 -->
+    <div class="budget-section">
+      <div class="budget-section-title">🍡 간식 · 기타 예비비</div>
+      <table class="bt">
+        <thead><tr><th>항목</th><th>엔화</th><th>한화 (≒)</th></tr></thead>
+        <tbody>
+          <tr><td>길거리 간식 (타코야키, 모찌, 크레페 등)</td><td class="yen">2,000엔~</td><td class="krw">20,000원~</td></tr>
+          <tr><td>편의점 · 음료 · 기타</td><td class="yen">3,000엔~</td><td class="krw">30,000원~</td></tr>
+          <tr><td>기념품 (3일차 한큐 지하 · 아뮤 식품관)</td><td class="yen">5,000엔~</td><td class="krw">50,000원~</td></tr>
+          <tr><td style="font-weight:600;color:var(--tx)">기타 소계</td><td class="yen" style="font-weight:700">10,000엔~</td><td class="krw" style="font-weight:700">100,000원~</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 총액 -->
+    <div class="budget-total">
+      <div class="budget-total-row">
+        <span class="btl">🇰🇷 한국 내 이동</span>
+        <span><span class="btv-krw">50,000원</span></span>
+      </div>
+      <div class="budget-total-row">
+        <span class="btl">🍽 식사 · 음료</span>
+        <span><span class="btv-yen">39,900엔~</span><span class="btv-krw">약 399,000원~</span></span>
+      </div>
+      <div class="budget-total-row">
+        <span class="btl">🚖 현지 이동 · 보관</span>
+        <span><span class="btv-yen">8,000엔</span><span class="btv-krw">약 80,000원</span></span>
+      </div>
+      <div class="budget-total-row">
+        <span class="btl">🍡 간식 · 기타</span>
+        <span><span class="btv-yen">10,000엔~</span><span class="btv-krw">약 100,000원~</span></span>
+      </div>
+      <div class="budget-total-row total-final">
+        <span class="btl">💰 쇼핑 제외 총 예상 (1인)</span>
+        <span><span class="btv-yen">약 58,000엔~</span><span class="btv-krw">+ 약 630,000원~</span></span>
+      </div>
+    </div>
+    <p class="budget-note">
+      ※ 쇼핑 예산은 개인 별도 (예비비 추가 권장)<br>
+      ※ 우오쿠라 주류 추가 시 1인 +3,000~5,000엔<br>
+      ※ 실제 지출은 초과 가능성 있음 — 여유 있게 엔화 80,000~100,000엔 환전 권장
+    </p>
+
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════
+     PANEL 2 : 상세 일정
+══════════════════════════════ -->
+<div class="panel" id="panel-detail">
+
+  <!-- 출발 당일 -->
+  <div class="db" style="margin-bottom:36px">
+    <h4>🚖 출발 당일 — 군포 → 인천공항 T2</h4>
+    <div class="route">
+      <div class="rs"><span class="rt">04:30</span><span class="rd"><strong>군포 출발.</strong> 카카오택시 100,000원 / 4인 분담 시 인당 25,000원. 7일 전 예약 필수.</span></div>
+      <div class="rs"><span class="rt">05:40</span><span class="rd"><strong>인천공항 제2터미널(T2) 도착.</strong> 에어서울은 2025년 9월 9일부터 T2 이전. 수속 카운터 E1~E10.</span></div>
+      <div class="rs"><span class="rt">05:50</span><span class="rd"><strong>탑승 수속 & 수하물 위탁.</strong> 출발 2시간 15분 전. 일요일 아침이라 줄 길 수 있음.</span></div>
+      <div class="rs"><span class="rt">06:20</span><span class="rd"><strong>보안검색 & 출국심사 통과.</strong></span></div>
+      <div class="rs"><span class="rt">07:20</span><span class="rd"><strong>게이트 이동.</strong> 면세점 간단히 둘러볼 여유 있음.</span></div>
+      <div class="rs"><span class="rt">08:05</span><span class="rd"><strong>인천 T2 출발 ✈</strong> (에어서울). 비행 약 1시간 30분.</span></div>
+      <div class="rs"><span class="rt">09:35</span><span class="rd"><strong>후쿠오카 공항 도착.</strong> 입국심사 → 수하물 수취 → 1층 택시 또는 지하철 탑승.</span></div>
+      <div class="rs"><span class="rt">10:30</span><span class="rd"><strong>하카타역 도착.</strong> 공항→하카타역 택시 약 2,000엔 / 지하철 약 260엔 5분.</span></div>
+    </div>
+  </div>
+
+  <!-- DAY 1 -->
+  <div class="day-section d1">
+    <div class="day-header">
+      <div class="day-badge">1</div>
+      <div class="dht"><h2>Day 1 — 8월 2일 (일)</h2><p>하카타 압축 쇼핑 ➡ 이마이즈미 밤거리</p></div>
+    </div>
+    <div class="tl">
+
+      <div class="ti">
+        <div class="dot sos"></div>
+        <div class="ti-time">11:00</div>
+        <div class="ti-title">하카타역 코인라커 짐 보관 <span class="badge b-sos">★ 응급조치</span></div>
+        <div class="ti-body">
+          <div class="hl">공항에서 곧장 하카타역으로. 숙소(이마이즈미)로 먼저 가면 왔다 갔다 하느라 1시간 허비 + 12:30 점심 예약 지각.</div>
+          <p>JR 개찰구 안팎 코인라커 다수 배치. 대형 캐리어 1,000엔 내외. 4개 기준 총 4,000엔.</p>
+        </div>
+      </div>
+
+      <div class="ti">
+        <div class="dot eat"></div>
+        <div class="ti-time">12:30</div>
+        <div class="ti-title">점심: 하카타 우오쿠라 <span class="badge b-eat">🍱 가이세키</span><span class="badge b-res">예약 필수</span></div>
+        <div class="ti-body">
+          <p>하카타역 인근. 도착 첫 끼를 제대로 된 일식 한 상으로 시작.</p>
+          <table class="mt">
+            <tr><th>메뉴</th><th>가격</th></tr>
+            <tr><td>가이세키 런치 코스</td><td class="pr">10,000엔~ / 인당</td></tr>
+            <tr><td>주류</td><td class="pr">별도 실비</td></tr>
+          </table>
+          <div class="hl red">4인 예약 확인 필수. 변경·취소는 최소 하루 전 연락.</div>
+          <a class="lb" href="https://blog.naver.com/lifeofbliss/224218999748" target="_blank">🔗 블로그 리뷰</a>
+        </div>
+      </div>
+
+      <div class="ti">
+        <div class="dot shop"></div>
+        <div class="ti-time">13:40 ~ 15:30</div>
+        <div class="ti-title">하카타역 쇼핑: 아뮤플라자 & 한큐 백화점 <span class="badge b-shop">실내 쇼핑</span></div>
+        <div class="ti-body">
+          <p>우오쿠라에서 나오면 아뮤플라자(AMU)와 한큐가 바로 연결. 에어컨 동선 완벽.</p>
+          <p>2일 차엔 감성 편집숍 위주라 여기서 백화점 브랜드 집중 공략이 효율적. 포터, 꼼데가르송, 손수건, 지갑류 등.</p>
+          <p>아뮤플라자 8층 <strong>닌텐도 후쿠오카</strong> 매장 있음 (2025년 11월 오픈, 규슈 최초 직영점). 후쿠오카 한정 굿즈 선점 가능.</p>
+        </div>
+      </div>
+
+      <div class="ti">
+        <div class="dot cafe"></div>
+        <div class="ti-time">15:30</div>
+        <div class="ti-title">카페: REC COFFEE 하카타 마루이점 <span class="badge b-cafe">☕ 스페셜티</span></div>
+        <div class="ti-body">
+          <p>KITTE 마루이 백화점 6층. 창가 자리에 앉으면 하카타역 광장이 내려다보이는 뷰 맛집.</p>
+          <table class="mt">
+            <tr><th>메뉴</th><th>가격</th></tr>
+            <tr><td>블렌드 드립 / 카페라떼</td><td class="pr">650~800엔</td></tr>
+          </table>
+          <p>영업시간: 10:00~20:00</p>
+        </div>
+      </div>
+
+      <div class="ti">
+        <div class="dot move"></div>
+        <div class="ti-time">16:30</div>
+        <div class="ti-title">짐 찾아 숙소 이동 & 체크인 <span class="badge b-sos">가장 더운 시간대 대피</span></div>
+        <div class="ti-body">
+          <p>코인라커에서 캐리어 꺼내 택시로 이마이즈미 에어비앤비 이동. 약 10분, 1,000엔 내외.</p>
+          <p><strong>숙소 주소:</strong> 후쿠오카시 주오구 이마이즈미 1초메 18-42</p>
+          <div class="hl">체크인 후 에어컨 빵빵. 1~2시간 휴식. 저녁 전 완전 충전.</div>
+        </div>
+      </div>
+
+      <div class="ti">
+        <div class="dot eat"></div>
+        <div class="ti-time">18:00</div>
+        <div class="ti-title">저녁: 니쿠젠 (구로게와규 니쿠젠) <span class="badge b-eat">🥩 야키니쿠 무제한</span><span class="badge b-res">사전 예약 완료</span></div>
+        <div class="ti-body">
+          <p>주소: 후쿠오카시 주오구 다이묘 2-12-17 (아카사카역 3번 출구 도보 1분). 숙소에서 도보 이동 가능.</p>
+          <table class="mt">
+            <tr><th>코스</th><th>가격</th></tr>
+            <tr><td>120분 야키니쿠 무제한 (스탠다드)</td><td class="pr">약 5,670엔~</td></tr>
+            <tr><td>120분 프리미엄 무제한 + 등심스테이크 1회</td><td class="pr">약 6,770엔~</td></tr>
+            <tr><td>음료/주류 무제한 추가</td><td class="pr">약 1,430엔~</td></tr>
+          </table>
+          <div class="hl">사가현 흑모와규. 태블릿 무제한 주문. 꼭 시켜야 할 부위: 조갈비(上カルビ) · 우탄(牛タン) · 하라미(ハラミ). 마무리는 하이볼 + 아이스크림 파르페.</div>
+          <p>영업시간: 일~목 17:00~22:00 / 금·토 17:00~23:00</p>
+          <a class="lb" href="https://blog.naver.com/ziggu-ziggu/224302296291" target="_blank">🔗 블로그 리뷰</a>
+        </div>
+      </div>
+
+      <div class="ti">
+        <div class="dot night"></div>
+        <div class="ti-time">21:00</div>
+        <div class="ti-title">2차: 이마이즈미 / 다이묘 골목 맥주집</div>
+        <div class="ti-body">
+          <p>숙소 반경 도보 5분 내 이자카야 또는 비어바 즉흥 선택. 현금 준비.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DAY 2 -->
+  <div class="day-section d2">
+    <div class="day-header">
+      <div class="day-badge">2</div>
+      <div class="dht"><h2>Day 2 — 8월 3일 (월)</h2><p>야쿠인 감성 투어 ➡ 텐진 중앙공원 야경 산책</p></div>
+    </div>
+    <div class="tl">
+
+      <div class="ti">
+        <div class="dot move"></div>
+        <div class="ti-time">기상 ~ 11:00</div>
+        <div class="ti-title">오전 자유 시간 <span class="badge b-night">☀ 자유</span></div>
+        <div class="ti-body">
+          <p>일어나고 싶을 때 일어나면 됨. 숙소 근처 편의점에서 가볍게 해결하거나, 이마이즈미 골목 카페에서 느긋하게 모닝커피 한 잔.</p>
+          <div class="hl blue">전날 니쿠젠 고기 파티 다음 날이니 몸 상태 보고 자유롭게. 11:15 부타야 오픈런 전까지가 유일한 여유 시간.</div>
+        </div>
+      </div>
+
+      <div class="ti">
+        <div class="dot eat"></div>
+        <div class="ti-time">11:15</div>
+        <div class="ti-title">점심: 부타야 쇼쿠도 <span class="badge b-eat">🥩 돈테키</span><span class="badge b-cash">현금 필수</span></div>
+        <div class="ti-body">
+          <p>야쿠인역 근처. 일요일 정기휴무이므로 <strong>월요일(8월 3일) 방문 문제없음.</strong> 11:30 오픈 15분 전 도착해 웨이팅.</p>
+          <p>돈테키는 두툼한 돼지고기 철판 구이. 후쿠오카에서 희귀한 메뉴. 예약 불가 / 현금 결제 전용.</p>
+          <div class="hl blue">⚠ 1인당 최소 2,000엔 이상 현금 준비. 전날 ATM 이용 권장.</div>
+          <a class="lb" href="https://blog.naver.com/l0veuni/224319259126" target="_blank">🔗 블로그 리뷰</a>
+        </div>
+      </div>
+
+      <div class="ti">
+        <div class="dot shop"></div>
+        <div class="ti-time">12:30 ~ 15:30</div>
+        <div class="ti-title">야쿠인 ~ 이마이즈미 골목 쇼핑 <span class="badge b-shop">감성 편집숍</span></div>
+        <div class="ti-body">
+          <p>부타야에서 나오면 바로 후쿠오카에서 가장 힙한 거리로 연결. 대형 쇼핑몰과 전혀 다른 분위기.</p>
+          <p><strong>추천 동선:</strong> 야쿠인 카페거리 편집숍 → 다이묘 스트리트 브랜드 (슈프림, 스투시, 휴먼메이드) → 이마이즈미 빈티지샵</p>
+          <div class="hl blue">야쿠인에서 이마이즈미 방향으로 걸으면 토리돈 저녁 방향과 동선 일치. 길 잃기 쉬우니 가고 싶은 편집숍 구글맵 핀 미리 저장.</div>
+          <p>골목 간식은 쇼핑 탭 참고.</p>
+        </div>
+      </div>
+
+      <div class="ti">
+        <div class="dot cafe"></div>
+        <div class="ti-time">15:30</div>
+        <div class="ti-title">카페: 커넥트 커피 (Connect Coffee) <span class="badge b-cafe">☕ 스페셜티</span></div>
+        <div class="ti-body">
+          <p>야쿠인 골목 마무리 지점, 이마이즈미/텐진 경계선 동선상에 위치. 라떼아트 세계 챔피언 바리스타 운영.</p>
+          <table class="mt">
+            <tr><th>메뉴</th><th>가격</th></tr>
+            <tr><td>카페라떼 / 드립커피</td><td class="pr">650~800엔</td></tr>
+          </table>
+          <p>다리 쉬고 토리돈 예약 시간 맞춰 천천히 이동.</p>
+        </div>
+      </div>
+
+      <div class="ti">
+        <div class="dot eat"></div>
+        <div class="ti-time">18:30</div>
+        <div class="ti-title">저녁: 토리돈 하루요시점 <span class="badge b-eat">🍢 야키토리</span><span class="badge b-res">사전 예약 완료</span></div>
+        <div class="ti-body">
+          <p>주소: 후쿠오카시 주오구 하루요시 3-22-25. 카페에서 도보 5~7분.</p>
+          <p>전문 셰프 특선 야키토리 + 오뎅. 현지인 로컬 플레이스. 예약 시간에 맞춰 프리패스 입장.</p>
+          <table class="mt">
+            <tr><th>메뉴</th><th>가격 (예상)</th></tr>
+            <tr><td>야키토리 모둠 + 사이드 + 나마비루(생맥주)</td><td class="pr">5,500~7,000엔 / 인당</td></tr>
+          </table>
+          <div class="hl blue">생맥주 외 하이볼, 매실 사와도 추천. 특히 하이볼로 만든 매실 사와가 야키토리와 찰떡.</div>
+          <a class="lb" href="https://blog.naver.com/sunjung0407/224285601486" target="_blank">🔗 블로그 리뷰</a>
+        </div>
+      </div>
+
+      <div class="ti">
+        <div class="dot night"></div>
+        <div class="ti-time">21:00</div>
+        <div class="ti-title">텐진 중앙공원 야경 & 낭만 산책 <span class="badge b-night">🌙 야경</span></div>
+        <div class="ti-body">
+          <p>토리돈 하루요시에서 도보 약 10분. 텐진 중앙공원 (天神中央公園).</p>
+          <div class="hl blue">나카강(那珂川) 수변을 따라 조명이 깔린 야경 산책로. 밤바람에 식사 소화시키며 걷기 딱 좋은 코스. 주변에 야타이(포장마차)도 있어 맥주 한 캔 더 들고 걸어도 자연스러움.</div>
+          <p>텐진 중앙공원에서 이마이즈미 숙소까지 도보 약 10~12분. 걷거나 택시로 귀숙.</p>
+        </div>
+      </div>
+
+      <div class="ti">
+        <div class="dot night"></div>
+        <div class="ti-time">22:00</div>
+        <div class="ti-title">2차: 숙소 근처 이자카야 (선택)</div>
+        <div class="ti-body">
+          <p>공원 산책 후 컨디션 보고 이마이즈미 인근 이자카야 즉흥 선택 또는 편의점 귀숙.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DAY 3 -->
+  <div class="day-section d3">
+    <div class="day-header">
+      <div class="day-badge">3</div>
+      <div class="dht"><h2>Day 3 — 8월 4일 (화)</h2><p>하카타역 실내 올인원 → 공항 출발</p></div>
+    </div>
+    <div class="tl">
+
+      <div class="ti">
+        <div class="dot move"></div>
+        <div class="ti-time">기상 ~ 10:00</div>
+        <div class="ti-title">오전 자유 시간 <span class="badge b-night">☀ 자유</span></div>
+        <div class="ti-body">
+          <p>마지막 날 아침. 서두를 필요 없음. 짐 정리하면서 숙소에서 느긋하게 보내도 되고, 이마이즈미 골목 편의점이나 카페에서 마지막 모닝을 즐겨도 됨.</p>
+          <div class="hl green">10:15 체크아웃 맞춰 짐 싸두는 것만 잊지 말 것.</div>
+        </div>
+      </div>
+
+      <div class="ti">
+        <div class="dot move"></div>
+        <div class="ti-time">10:15</div>
+        <div class="ti-title">숙소 체크아웃 → 하카타역 택시</div>
+        <div class="ti-body"><p>마지막 날 캐리어 끌고 길바닥 돌아다니면 지옥. 체크아웃 직후 택시로 하카타역 직행.</p></div>
+      </div>
+
+      <div class="ti">
+        <div class="dot sos"></div>
+        <div class="ti-time">10:45</div>
+        <div class="ti-title">수하물 보관 <span class="badge b-sos">★ 응급조치</span></div>
+        <div class="ti-body">
+          <div class="hl">이 시간 코인라커 전멸 확률 높음. 하카타역 1층 종합안내소 뒤편 또는 한큐 백화점 물품보관 카운터 이용. 유료지만 확실.</div>
+          <p>짐 맡기면 이후 3시간 손이 완전히 자유로워짐.</p>
+        </div>
+      </div>
+
+      <div class="ti">
+        <div class="dot eat"></div>
+        <div class="ti-time">11:00</div>
+        <div class="ti-title">점심: 신신라멘 데이토스 하카타 멘카이도점 <span class="badge b-eat">🍜 돈코츠</span></div>
+        <div class="ti-body">
+          <p>텐진 본점처럼 땡볕에 줄 안 서도 됨. 에어컨 실내 계단·복도에서 대기 가능. 회전율 빠름.</p>
+          <table class="mt">
+            <tr><th>메뉴</th><th>가격</th></tr>
+            <tr><td>돈코츠 라멘</td><td class="pr">820엔</td></tr>
+            <tr><td>교자</td><td class="pr">550엔</td></tr>
+            <tr><td>볶음밥 세트 등 조합</td><td class="pr">약 1,500~2,000엔</td></tr>
+          </table>
+          <p>꿀팁: 처음 절반은 본연의 맛, 느끼해지면 생강 + 깨 투하.</p>
+        </div>
+      </div>
+
+      <div class="ti">
+        <div class="dot shop"></div>
+        <div class="ti-time">12:30 ~ 13:30</div>
+        <div class="ti-title">한큐 지하 & 아뮤플라자 기념품 쇼핑 <span class="badge b-shop">마지막 쇼핑</span></div>
+        <div class="ti-body">
+          <p>가족·지인 선물 집중. 명란 바게트 · 츠쿠시모치 · 토리몬 · 하카타 통각 과자 등. 전부 실내 동선만으로 해결.</p>
+        </div>
+      </div>
+
+      <div class="ti">
+        <div class="dot cafe"></div>
+        <div class="ti-time">13:30</div>
+        <div class="ti-title">카페: 무츠카도 카페 (아뮤플라자 5층) <span class="badge b-cafe">☕ 식빵 디저트</span></div>
+        <div class="ti-body"><p>시원한 음료 + 과일 샌드. 공항 가기 전 마지막 체력 충전.</p></div>
+      </div>
+
+      <div class="ti">
+        <div class="dot move"></div>
+        <div class="ti-time">14:00</div>
+        <div class="ti-title">짐 찾아 공항 택시 출발 <span class="badge b-sos">여유롭게</span></div>
+        <div class="ti-body">
+          <p>수하물 보관소 캐리어 수거 → 택시 탑승. 하카타역→공항 약 10~15분, 2,000엔 내외.</p>
+          <div class="hl green">17:30 출발 기준 3시간 30분 여유. 성수기 수속 대기 고려해 14:00 이전 출발 목표.</div>
+        </div>
+      </div>
+
+      <div class="ti">
+        <div class="dot move"></div>
+        <div class="ti-time">14:30</div>
+        <div class="ti-title">후쿠오카 공항 도착 / 탑승 수속 & 출국</div>
+        <div class="ti-body"><p>국제선 체크인 → 보안검색 → 출국심사 → 게이트. 면세 쇼핑 마지막 기회.</p></div>
+      </div>
+
+      <div class="ti">
+        <div class="dot move"></div>
+        <div class="ti-time">17:30</div>
+        <div class="ti-title">후쿠오카 → 인천 T1 출발 ✈ (티웨이항공)</div>
+        <div class="ti-body">
+          <p>비행 약 1시간 30분. 인천 <strong>제1터미널(T1)</strong> 도착. 수하물 수취 후 택시 또는 버스로 군포 귀가.</p>
+          <div class="hl">T1 도착이므로 T2 주차장으로 이동할 필요 없음. 택시 탑승하면 바로 군포 직행 가능. 자차 없이 온 여행의 장점.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════
+     PANEL 3 : 쇼핑 & 간식
+══════════════════════════════ -->
+<div class="panel" id="panel-shopping">
+
+  <div class="st">쇼핑 추천 — 카테고리별</div>
+  <div class="shop-grid">
+
+    <div class="shop-card cat1">
+      <h4>🔥 스트리트 브랜드</h4>
+      <div class="shop-item">
+        <div class="name">슈프림 (Supreme)</div>
+        <div class="desc">텐진 중심가 위치. 매장 규모 큼. 드랍일(토) 오전 9시 번호표 필수. 일본 한정 컬러 · 리미티드 간혹 출현. 면세 미적용.</div>
+      </div>
+      <div class="shop-item">
+        <div class="name">스투시 (Stüssy)</div>
+        <div class="desc">텐진 마로니에 NEXT 1F. 한국어 가능 직원 상주. 오리지널 감성 깔끔한 매장. 기본 티, 캡, 백 추천.</div>
+      </div>
+      <div class="shop-item">
+        <div class="name">휴먼메이드 (Human Made)</div>
+        <div class="desc">다이묘 위치. 현지인+관광객 모두 인기. 매장 넓고 제품 수량 충분. 한정판 티셔츠 · 토트백 주목.</div>
+      </div>
+    </div>
+
+    <div class="shop-card cat2">
+      <h4>🏠 라이프스타일 & 편집숍</h4>
+      <div class="shop-item">
+        <div class="name">프랑프랑 (Francfranc)</div>
+        <div class="desc">캐널시티 이스트빌딩 2~3F (영업 10:00~21:00). 텐진 파르코 5F에도 입점. 인테리어 소품 · 주방용품 · 아로마. 선물용으로 최적.</div>
+      </div>
+      <div class="shop-item">
+        <div class="name">무인양품 (MUJI)</div>
+        <div class="desc">다이묘 · 텐진 대형 매장. 향 제품(디퓨저 라인) 강력 추천 — 한국 미판매 품목 많음. 여행용 소품도 실용적.</div>
+      </div>
+      <div class="shop-item">
+        <div class="name">야쿠인 감성 편집숍들</div>
+        <div class="desc">야쿠인~이마이즈미 골목. 빈티지숍 · 인테리어 소품샵 · 소규모 셀렉트샵 밀집. 간판 작고 골목 좁으니 구글맵 핀 저장 필수.</div>
+      </div>
+    </div>
+
+    <div class="shop-card cat3">
+      <h4>⌚ 명품 & 백화점</h4>
+      <div class="shop-item">
+        <div class="name">이와타야 백화점</div>
+        <div class="desc">텐진 대표 고급 백화점. 이세탄 미츠코시 계열. 명품 브랜드 + 일본 고급 생활잡화. 면세 가능.</div>
+      </div>
+      <div class="shop-item">
+        <div class="name">한큐 백화점 (하카타역)</div>
+        <div class="desc">포터 · 꼼데가르송 · 국내 미입점 브랜드 다수. 1일 차 쇼핑 핵심. 지하 식품관도 기념품 필수 코스.</div>
+      </div>
+      <div class="shop-item">
+        <div class="name">포터 (PORTER)</div>
+        <div class="desc">한큐 백화점 입점. 일본 내 가격 메리트 있음. 지갑 · 토트백 · 슬링백 라인 인기. 면세 적용 가능.</div>
+      </div>
+    </div>
+
+    <div class="shop-card cat4">
+      <h4>🎮 굿즈 & 서브컬처</h4>
+      <div class="shop-item">
+        <div class="name">닌텐도 후쿠오카</div>
+        <div class="desc">아뮤플라자 하카타 8층. 2025년 11월 오픈 규슈 최초 직영점. 후쿠오카 한정 독점 굿즈 판매. 1일 차 쇼핑에 포함.</div>
+      </div>
+      <div class="shop-item">
+        <div class="name">원피스 무기와라 스토어</div>
+        <div class="desc">텐진 파르코 7층. 짱구 오피셜샵 · 애니메이트도 동층~8층에 밀집. 파르코 한 층으로 굿즈 올킬.</div>
+      </div>
+      <div class="shop-item">
+        <div class="name">만다라케 후쿠오카</div>
+        <div class="desc">텐진 다이묘 위치. 중고 피규어 · 희귀 굿즈. 큐슈 최대 규모. 보물찾기 감성.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="st">쇼핑 중 간식 추천</div>
+  <div class="snack-list">
+    <div class="snack">
+      <div class="sn">🐙 타코야키 — 캐널시티 긴타코</div>
+      <div class="sd">캐널시티 지하 1층. 분수쇼 보며 서서 먹기 딱 좋음. 분수 벤치에 앉아 먹어도 됨. 기본 4개 626엔부터.</div>
+      <div class="sp">626~734엔</div>
+    </div>
+    <div class="snack">
+      <div class="sn">🍠 고구마 스틱 — 이모야 킨지로</div>
+      <div class="sd">텐진 지하상가 입점. 달콤 바삭한 고구마 스틱. 맥주 안주로도 완벽. 현금 결제.</div>
+      <div class="sp">300~500엔</div>
+    </div>
+    <div class="snack">
+      <div class="sn">🍡 딸기 모찌 — 코마야 (Komaya)</div>
+      <div class="sd">텐진역 도보 10분. 생과일 딸기 사용 현지 떡집. 로컬 주민들이 즐겨 찾는 곳. 현금 전용.</div>
+      <div class="sp">300엔</div>
+    </div>
+    <div class="snack">
+      <div class="sn">🥞 크레페 — 다이묘 골목 노점</div>
+      <div class="sd">다이묘 거리 골목 사이사이 소규모 크레페 가게. 쇼핑 중 당 충전용. 즉흥으로 발견하는 재미.</div>
+      <div class="sp">400~600엔</div>
+    </div>
+    <div class="snack">
+      <div class="sn">🍺 편의점 (ファミマ / セブン)</div>
+      <div class="sd">쇼핑 중 수시로 활용. 일본 편의점 아이스크림 · 하이볼 캔 · 오니기리. 이마이즈미 숙소 주변 24시간 운영.</div>
+      <div class="sp">150~300엔</div>
+    </div>
+    <div class="snack">
+      <div class="sn">🧇 무츠카도 과일 샌드 — 아뮤 5층</div>
+      <div class="sd">3일 차 마지막 간식. 부드러운 식빵 + 생크림 + 제철 과일. 공항 가기 전 달콤한 마무리.</div>
+      <div class="sp">500~700엔</div>
+    </div>
+  </div>
+
+  <div class="st" style="margin-top:32px">기념품 추천 (3일 차 한큐 지하 · 아뮤 식품관)</div>
+  <div class="snack-list">
+    <div class="snack">
+      <div class="sn">🐟 명란 바게트</div>
+      <div class="sd">후쿠오카 1위 기념품. 냉장 보관 / 당일 소비 권장. 하카타역 KITTE 마루이 등에서 구매 가능.</div>
+    </div>
+    <div class="snack">
+      <div class="sn">🍡 토리몬</div>
+      <div class="sd">하기 명과. 버터 풍미 부드러운 화과자. 여러 개 포장 선물용으로 인기.</div>
+    </div>
+    <div class="snack">
+      <div class="sn">🍰 츠쿠시모치</div>
+      <div class="sd">후쿠오카 전통 찹쌀 화과자. 개별 포장으로 선물하기 편리.</div>
+    </div>
+    <div class="snack">
+      <div class="sn">🍫 하카타 통각 과자</div>
+      <div class="sd">바삭한 식감의 하카타 전통 과자. 여러 명에게 나눠주기 딱 좋은 볼륨.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════
+     PANEL 4 : 체크리스트
+══════════════════════════════ -->
+<div class="panel" id="panel-check">
+
+  <div class="st">⚠ 터미널 주의사항</div>
+  <div class="db">
+    <h4>갈 때 T2 / 올 때 T1 — 반드시 숙지</h4>
+    <p><strong>출발 (8.2 일)</strong> — 에어서울: 인천공항 <strong>제2여객터미널 (T2)</strong> E1~E10 카운터</p>
+    <p><strong>귀국 (8.4 화)</strong> — 티웨이항공: 인천공항 <strong>제1여객터미널 (T1)</strong> 도착</p>
+    <p class="warn">⚠ 자차 없이 택시 이용이므로 터미널 달라도 문제없음. 카카오택시 호출 시 T2 지정, 귀국 시 T1 앞에서 탑승.</p>
+  </div>
+
+  <div class="st">예약 확인</div>
+  <ul class="cl">
+    <li><span class="ck">□</span> 하카타 우오쿠라 — 4인 / 8월 2일 12:30 예약 확인</li>
+    <li><span class="ck">□</span> 니쿠젠 — 4인 / 8월 2일 18:00 예약 확인 (인스타 DM 예약)</li>
+    <li><span class="ck">□</span> 토리돈 하루요시 — 4인 / 8월 3일 18:30 예약 확인</li>
+    <li><span class="ck">□</span> 이마이즈미 에어비앤비 — 체크인 08.02 / 체크아웃 08.04</li>
+    <li><span class="ck">□</span> 항공권 — 에어서울 08.02 08:05 / 티웨이 08.04 17:30</li>
+    <li><span class="ck">□</span> 카카오택시 — 7일 전 예약 (100,000원 / 4인)</li>
+  </ul>
+
+  <div class="st">현금 준비</div>
+  <ul class="cl">
+    <li><span class="ck">💴</span> 부타야 쇼쿠도 — 현금 전용 (1인 2,000엔+)</li>
+    <li><span class="ck">💴</span> 코인라커 — 1일 차 4,000엔 내외</li>
+    <li><span class="ck">💴</span> 택시 요금 — 공항↔하카타역, 숙소 이동 (약 6,000엔)</li>
+    <li><span class="ck">💴</span> 야타이(포장마차) · 이자카야 2차 — 현금 있는 곳 다수</li>
+    <li><span class="ck">💴</span> 코마야 딸기모찌 · 이모야 킨지로 — 현금 전용</li>
+    <li><span class="ck">💴</span> 1인 총 환전 권장: <strong>80,000~100,000엔</strong></li>
+  </ul>
+
+  <div class="st">짐 & 준비물</div>
+  <ul class="cl">
+    <li><span class="ck">○</span> 여권 (유효기간 6개월 이상)</li>
+    <li><span class="ck">○</span> 엔화 환전 (1인 80,000~100,000엔)</li>
+    <li><span class="ck">○</span> 일본 유심 또는 포켓와이파이</li>
+    <li><span class="ck">○</span> 쿨링 스프레이 · 접이식 부채 · 손수건 (8월 폭염 필수)</li>
+    <li><span class="ck">○</span> 걷기 편한 신발 (2일차 야쿠인 골목 많이 걸음)</li>
+    <li><span class="ck">○</span> 에코백 (기념품·간식 쇼핑용)</li>
+    <li><span class="ck">○</span> 충전기 · 멀티탭</li>
+    <li><span class="ck">○</span> 카카오택시 앱 예약 완료 확인</li>
+  </ul>
+
+  <div class="st">긴급 연락처</div>
+  <ul class="cl">
+    <li><span class="ck">📍</span> 숙소: 후쿠오카시 주오구 이마이즈미 1-18-42</li>
+    <li><span class="ck">📍</span> 토리돈 하루요시: 주오구 하루요시 3-22-25</li>
+    <li><span class="ck">📍</span> 니쿠젠: 주오구 다이묘 2-12-17</li>
+    <li><span class="ck">📍</span> 후쿠오카 공항 국제선: 092-621-6059</li>
+    <li><span class="ck">📍</span> 주후쿠오카 한국 총영사관: 092-771-0461</li>
+    <li><span class="ck">📍</span> 일본 경찰 110 / 소방·구급 119</li>
+  </ul>
+
+  <div class="st">동선 3줄 요약</div>
+  <div class="db" style="margin-top:0">
+    <h4>🗺 핵심 동선</h4>
+    <p><strong>1일차</strong> — [하카타역 중심] 짐 보관 → 우오쿠라 → 아뮤/한큐 쇼핑 → REC커피 → 숙소 → 니쿠젠 야키니쿠</p>
+    <p style="margin-top:8px"><strong>2일차</strong> — [야쿠인 골목 중심] 돈테키 → 편집숍 쇼핑 → 커넥트 커피 → 토리돈 → 텐진 중앙공원 야경, 하나의 선으로 이어지는 동선</p>
+    <p style="margin-top:8px"><strong>3일차</strong> — [하카타역 실내 올인원] 라멘 → 기념품 → 디저트 → 공항, 땡볕 한 발짝도 안 나감</p>
+  </div>
+
+</div>
+
+</div><!-- /content -->
+</div><!-- /wrap -->
+
+<footer>다음은 언제일지 모른다 — 일단 즐기자, 후쿠오카 · 류봉두 · 김승구 · 송요댕 · 배돌이 · 2026.08.02 — 08.04</footer>
+
+<script>
+function switchTab(id, el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('panel-' + id).classList.add('active');
+}
+</script>
+</body>
+</html>
